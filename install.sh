@@ -1,7 +1,7 @@
 #!/bin/bash
 interfaceWifi=wlan0
 interfaceWired=eth0
-ipAddress=192.168.4.1/24
+ipAddress=192.168.42.1/24
 
 ### Check if run as root ############################
 if [[ $EUID -ne 0 ]]; then
@@ -37,7 +37,6 @@ cat > /etc/systemd/network/08-${interfaceWifi}-CLI.network <<-EOF
 	Name=$interfaceWifi
 	[Network]
 	DHCP=yes
-	LinkLocalAddressing=yes
 	MulticastDNS=yes
 EOF
 		
@@ -49,10 +48,8 @@ cat > /etc/systemd/network/12-${interfaceWifi}-AP.network <<-EOF
 	IPForward=yes
 	IPMasquerade=yes
 	DHCPServer=yes
-	LinkLocalAddressing=yes
 	MulticastDNS=yes
 	[DHCPServer]
-	DNS=84.200.69.80 84.200.70.40 1.1.1.1
 EOF
 
 cp $(pwd)/auto-hotspot /usr/local/sbin/

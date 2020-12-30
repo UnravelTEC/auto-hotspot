@@ -16,6 +16,10 @@ fi
 apt --autoremove -y purge ifupdown dhcpcd5 isc-dhcp-client isc-dhcp-common rsyslog
 apt-mark hold ifupdown dhcpcd5 isc-dhcp-client isc-dhcp-common rsyslog raspberrypi-net-mods openresolv
 rm -r /etc/network /etc/dhcp
+rm -f /etc/resolv.conf
+cat > /etc/resolv.conf <<-EOF
+nameserver 1.1.1.1
+EOF
 
 # setup/enable systemd-resolved and systemd-networkd
 apt --autoremove -y purge avahi-daemon
